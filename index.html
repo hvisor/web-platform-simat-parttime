@@ -63,7 +63,7 @@
   <body>
     <div id="q-app" class="q-pa-xs" style="font-family: 'Maitree', serif">
       <q-toolbar class="bg-red text-white">
-        <q-toolbar-title>Check in / เช้คอิน</q-toolbar-title>
+        <q-toolbar-title>Register / ลงทะเบียน</q-toolbar-title>
       </q-toolbar>
 
       <div class="row q-mt-xs q-col-gutter-sm justify-center">
@@ -74,13 +74,44 @@
             <p id="displayName"></p>
           </div>
         </div>
-        
-          <div class="row q-mt-xs q-col-gutter-sm justify-center">
-            <div class="col-md-12 col-xs-12">
-              <q-input dense outlined v-model="empcode" label="Outlined" />
-            </div>
-          </div>
-       
+      </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-12 col-xs-12">
+          <q-input outlined v-model="empcode" label="เลขที่ พนง." stack-label>
+            <template v-slot:label>
+              <span class="text-h6 my-label">เลขที่ พนง.</span>
+            </template>
+          </q-input>
+        </div>
+      </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-12 col-xs-12">
+          <q-input
+            v-model="pwd"
+            label="รหัสผ่าน"
+            outlined
+            :type="isPwd ? 'password' : 'text'"
+            stack-label
+          >
+            <template v-slot:label>
+              <span class="text-h6 my-label">รหัสผ่าน</span>
+            </template>
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+        </div>
+      </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-12 col-xs-12">
+          <q-btn size="md" class="full-width bg-primary text-white">
+            <div class="text-center text-h6">ลงทะเบียนใช้งาน</div>
+          </q-btn>
+        </div>
       </div>
     </div>
   </body>
@@ -93,7 +124,9 @@
     var app = new Vue({
       el: '#q-app',
       data: {
+        isPwd: false,
         empcode: '',
+        pwd: '',
       },
       created() {},
       async mounted() {},
