@@ -144,6 +144,12 @@
       created() {},
       async mounted() {
         liff.init({ liffId: this.liffId });
+        // liff.ready.then(() => {
+        //   if (!liff.isLoggedIn()) {
+        //     liff.login();
+        //   }
+        //   liff.getProfile().then((profile) => {});
+        // });
       },
       methods: {
         register() {
