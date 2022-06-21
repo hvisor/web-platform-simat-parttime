@@ -111,6 +111,18 @@
           <q-input dense outlined v-model="email" label="E-mail" stack-label />
         </div>
       </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-6 col-xs-12">
+          <q-input
+            dense
+            outlined
+            v-model="desc"
+            type="textarea"
+            label="รายละเอียด / อาการ"
+            stack-label
+          />
+        </div>
+      </div>
     </div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
@@ -126,6 +138,7 @@
         company: '',
         mobile: '',
         email: '',
+        desc: '',
         companys: [
           { label: 'JAY', value: 'JAY' },
           { label: 'JMB', value: 'JMB' },
