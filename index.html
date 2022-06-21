@@ -1,44 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      content="width=device-width, initial-scale=1, maximum-scale=1,
-        user-scalable=no"
-      name="viewport"
-    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Line OA</title>
     <link
-      href="https://fonts.googleapis.com/css?family=Maitree"
       rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
     />
-    <title>Register</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/@mdi/font@^5.0.0/css/materialdesignicons.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/ionicons@^4.0.0/dist/css/ionicons.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/eva-icons@^1.0.0/style/eva-icons.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/quasar@1.15.4/dist/quasar.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-
     <style>
       html,
       body {
@@ -61,121 +32,45 @@
   </head>
 
   <body>
-    <div id="q-app" class="q-pa-xs" style="font-family: 'Maitree', serif">
-      <q-toolbar class="bg-red text-white">
-        <q-toolbar-title>Register / ลงทะเบียน</q-toolbar-title>
-      </q-toolbar>
+    <main class="d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="text-center">
+              <img src="logo-1a.png" alt="" width="80%" />
+              <img id="pictureUrl" width="25%" />
+              <p id="displayName"></p>
+            </div>
+            <form onsubmit="send(event)">
+              <div class="form-group">
+                <label>เลขที่ พนง.</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="prsno"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+              <div class="form-group">
+                <label for="pwd">รหัสผ่าน</label>
+                <input type="password" class="form-control" id="pwd" />
+              </div>
 
-      <div class="row q-mt-xs q-col-gutter-sm justify-center">
-        <div class="col-md-3 col-xs-12">
-          <div class="text-center">
-            <!-- <img src="logo-1a.png" alt="" width="80%" /> -->
-            <img id="pictureUrl" width="25%" />
-            <p id="displayName"></p>
+              <div class="text-center">
+                <input type="submit" id="btn" class="btn btn-primary" />
+              </div>
+            </form>
           </div>
         </div>
       </div>
-      <div class="row q-mt-xs q-col-gutter-sm justify-center">
-        <div class="col-md-12 col-xs-12">
-          <q-input outlined v-model="empcode" label="เลขที่ พนง." stack-label>
-            <template v-slot:label>
-              <span class="text-h6 my-label">เลขที่ พนง.</span>
-            </template>
-          </q-input>
-        </div>
-      </div>
-      <div class="row q-mt-xs q-col-gutter-sm justify-center">
-        <div class="col-md-12 col-xs-12">
-          <q-input
-            v-model="pwd"
-            label="รหัสผ่าน"
-            outlined
-            :type="isPwd ? 'password' : 'text'"
-            stack-label
-          >
-            <template v-slot:label>
-              <span class="text-h6 my-label">รหัสผ่าน</span>
-            </template>
-            <template v-slot:append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-          </q-input>
-        </div>
-      </div>
-      <div class="row q-mt-xs q-col-gutter-sm justify-center">
-        <div class="col-md-12 col-xs-12">
-          <q-btn
-            size="lg"
-            class="full-width bg-red text-white"
-            @click="register"
-          >
-            <div class="text-center text-h6">ลงทะเบียนใช้งาน</div>
-          </q-btn>
-        </div>
-      </div>
-    </div>
+    </main>
+    <!-- 1. script axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 2. script liff sdk -->
+    <script
+      charset="utf-8"
+      src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+    ></script>
+    <script src="index.js"></script>
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/quasar@1.15.4/dist/quasar.ie.polyfills.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/quasar@1.15.4/dist/quasar.umd.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script
-    charset="utf-8"
-    src="https://static.line-scdn.net/liff/edge/2/sdk.js"
-  ></script>
-
-  <script>
-    var app = new Vue({
-      el: '#q-app',
-      data: {
-        isPwd: false,
-        empcode: '',
-        pwd: '',
-        apiurl: 'https://68fc-110-49-90-2.ngrok.io',
-        liffId: '1657229309-Oml6AgRK',
-        userId: '',
-        pictureUrl: '',
-        displayName: '',
-      },
-      created() {},
-      async mounted() {
-        liff.init({ liffId: this.liffId });
-        // liff.ready.then(() => {
-        //   if (!liff.isLoggedIn()) {
-        //     liff.login();
-        //   }
-        //   liff.getProfile().then((profile) => {});
-        // });
-      },
-      methods: {
-        register() {
-          if (this.empcode == '' || this.pwd == '') {
-            this.$q.notify({
-              color: 'red-6',
-              position: 'center',
-              timeout: 2500,
-              message: 'กรุณาใส่เลขที่ พนง. และ รหัสผ่าน!',
-            });
-
-            return false;
-          }
-          let data = {};
-          data.prsno = this.empcode;
-          data.pwd = this.pwd;
-          axios({
-            method: 'post',
-            url: `${this.apiurl}/v1/register`,
-            data: data,
-            headers: {},
-          }).then((res) => {
-            console.log(res.data);
-          });
-        },
-      },
-    });
-  </script>
 </html>
