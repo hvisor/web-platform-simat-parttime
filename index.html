@@ -108,7 +108,11 @@
       </div>
       <div class="row q-mt-xs q-col-gutter-sm justify-center">
         <div class="col-md-12 col-xs-12">
-          <q-btn size="md" class="full-width bg-primary text-white">
+          <q-btn
+            size="lg"
+            class="full-width bg-red text-white"
+            @click="register"
+          >
             <div class="text-center text-h6">ลงทะเบียนใช้งาน</div>
           </q-btn>
         </div>
@@ -119,6 +123,10 @@
   <script src="https://cdn.jsdelivr.net/npm/quasar@1.15.4/dist/quasar.ie.polyfills.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/quasar@1.15.4/dist/quasar.umd.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script
+    charset="utf-8"
+    src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+  ></script>
 
   <script>
     var app = new Vue({
@@ -127,9 +135,41 @@
         isPwd: false,
         empcode: '',
         pwd: '',
+        apiurl: 'https://68fc-110-49-90-2.ngrok.io',
+        liffId: '1657229309-Oml6AgRK',
+        userId: '',
+        pictureUrl: '',
+        displayName: '',
       },
       created() {},
-      async mounted() {},
+      async mounted() {
+        liff.init({ liffId: this.liffId });
+      },
+      methods: {
+        register() {
+          if (this.empcode == '' || this.pwd == '') {
+            this.$q.notify({
+              color: 'red-6',
+              position: 'center',
+              timeout: 2500,
+              message: 'กรุณาใส่เลขที่ พนง. และ รหัสผ่าน!',
+            });
+
+            return false;
+          }
+          let data = {};
+          data.prsno = this.empcode;
+          data.pwd = this.pwd;
+          axios({
+            method: 'post',
+            url: `${this.apiurl}/v1/register`,
+            data: data,
+            headers: {},
+          }).then((res) => {
+            console.log(res.data);
+          });
+        },
+      },
     });
   </script>
 </html>
