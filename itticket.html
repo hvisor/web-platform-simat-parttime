@@ -123,6 +123,34 @@
           />
         </div>
       </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-6 col-xs-12">
+          <q-file
+            outlined
+            dense
+            v-model="attachimg"
+            label="แนบไฟล์ รูปภาพ ณ สถานที่ทำงาน"
+            @input="chkFile"
+          >
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+
+            <template v-if="attachimg" v-slot:append>
+              <q-icon
+                name="cancel"
+                @click.stop.prevent="attachimg = null"
+                class="cursor-pointer"
+              />
+            </template>
+          </q-file>
+        </div>
+      </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-6 col-xs-12">
+          <q-btn class="full-width" color="deep-orange" glossy label="บันทึก" />
+        </div>
+      </div>
     </div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
@@ -139,6 +167,7 @@
         mobile: '',
         email: '',
         desc: '',
+        attachimg: null,
         companys: [
           { label: 'JAY', value: 'JAY' },
           { label: 'JMB', value: 'JMB' },
@@ -158,6 +187,9 @@
       },
       created() {},
       async mounted() {},
+      methods: {
+        chkFile() {},
+      },
     });
   </script>
 </html>
