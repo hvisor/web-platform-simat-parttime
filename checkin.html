@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1,
+        user-scalable=no"
+      name="viewport"
+    />
+    <title>Check In</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Maitree"
+      rel="stylesheet"
+    />
+    <title>Check in / เช้คอิน</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@^5.0.0/css/materialdesignicons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/ionicons@^4.0.0/dist/css/ionicons.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/eva-icons@^1.0.0/style/eva-icons.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/quasar@1.15.4/dist/quasar.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        background: #f8f8f8;
+      }
+
+      main {
+        width: 100%;
+      }
+
+      #pictureUrl {
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="q-app" class="q-pa-xs" style="font-family: 'Maitree', serif">
+      <q-toolbar class="bg-red text-white">
+        <q-toolbar-title>Check in / เช้คอิน</q-toolbar-title>
+      </q-toolbar>
+      <div id="map" style="height: 35vh; width: 100%"></div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-3 col-xs-12">
+          <q-field dense outlined label="ตำแหน่ง" stack-label>
+            <template v-slot:control>
+              <div class="self-center full-width no-outline" tabindex="0">
+                {{latitude}},{{longitude}}
+              </div>
+            </template>
+          </q-field>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@^2.0.0/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.15.4/dist/quasar.ie.polyfills.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar@1.15.4/dist/quasar.umd.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script
+    type="text/javascript"
+    src="https://api.longdo.com/map/?key=a6a6db1240177290dcfeee239704a6be"
+  ></script>
+  <script>
+    var app = new Vue({
+      el: '#q-app',
+      data: {
+        map: null,
+        gettingLocation: false,
+        errorStr: null,
+        location: null,
+        latitude: null,
+        longitude: null,
+        address: '',
+      },
+      created() {
+        if (!('geolocation' in navigator)) {
+          this.errorStr = 'Geolocation is not available';
+          return;
+        }
+        this.gettingLocation = false;
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            this.gettingLocation = true;
+            console.log(pos);
+            this.location = pos.coords;
+            this.latitude = pos.coords.latitude;
+            this.longitude = pos.coords.longitude;
+          },
+          (err) => {
+            this.gettingLocation = false;
+            this.errorStr = err.message;
+          }
+        );
+      },
+      async mounted() {
+        this.map = new longdo.Map({
+          placeholder: document.getElementById('map'),
+          ui: longdo.UiComponent.Mobile,
+        });
+
+        console.log('aaa');
+
+        this.map.Ui.DPad.visible(true);
+        this.map.Ui.Zoombar.visible(true);
+        this.map.Ui.Geolocation.visible(true);
+        this.map.Ui.Toolbar.visible(false);
+        this.map.Ui.LayerSelector.visible(false);
+        this.map.Ui.Fullscreen.visible(false);
+        this.map.Ui.Crosshair.visible(true);
+        this.map.Ui.Scale.visible(false);
+
+        this.map.Event.bind('drag', function (event) {
+          return false;
+        });
+
+        this.map.Event.bind('drop', function (event) {
+          return false;
+        });
+
+        this.map.Event.bind('overlayDrop', function (event) {
+          return false;
+        });
+
+        this.map.Event.bind('overlayDrag', function (event) {
+          return false;
+        });
+
+        this.map.Event.bind('pinch', function (event) {
+          return false;
+        });
+
+        await this.map.location(longdo.LocationMode.Geolocation);
+
+        //   await this.map.location(
+        //     { lon: 101.24603971838951, lat: 12.081084104431767 },
+        //     true
+        //   )
+
+        var map2 = Maps.newStaticMap().setSize(600, 600);
+      },
+    });
+  </script>
+</html>
