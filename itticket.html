@@ -67,12 +67,48 @@
       </q-toolbar>
 
       <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-12 col-xs-12">
+          <div class="bg-grey-12 q-pa-sm rounded-borders">
+            บริษัท :
+            <q-option-group
+              dense
+              inline
+              v-model="company"
+              :options="companys"
+              color="primary"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-12 col-xs-12">
+          <div class="bg-grey-2 q-pa-sm rounded-borders">
+            แจ้งซ่อมอุปกรณ์ไอที :
+            <q-option-group
+              dense
+              inline
+              v-model="hardware"
+              :options="hardwares"
+              color="primary"
+              type="checkbox"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
         <div class="col-md-6 col-xs-12">
-          <q-option-group
-            v-model="company"
-            :options="companys"
-            color="primary"
+          <q-input
+            dense
+            outlined
+            v-model="mobile"
+            label="เบอร์โทรติดต่อ"
+            stack-label
           />
+        </div>
+      </div>
+      <div class="row q-mt-xs q-col-gutter-sm justify-center">
+        <div class="col-md-6 col-xs-12">
+          <q-input dense outlined v-model="email" label="E-mail" stack-label />
         </div>
       </div>
     </div>
@@ -88,7 +124,24 @@
       data: {
         map: null,
         company: '',
-        companys: ['JAY', 'JMB', 'JAS', 'BNB'],
+        mobile: '',
+        email: '',
+        companys: [
+          { label: 'JAY', value: 'JAY' },
+          { label: 'JMB', value: 'JMB' },
+          { label: 'JAS', value: 'JAS' },
+          { label: 'BNB', value: 'BNB' },
+          { label: 'JVC', value: 'JVC' },
+        ],
+        hardware: [],
+        hardwares: [
+          { label: 'PC/Notebook', value: 'PC/Notebook' },
+          { label: 'Network/Lan/Wifi', value: 'Network/Lan/Wifi' },
+          { label: 'Printer', value: 'Printer' },
+          { label: 'Software', value: 'Software' },
+          { label: 'CCTV', value: 'CCTV' },
+          { label: 'POS Casa', value: 'POS Casa' },
+        ],
       },
       created() {},
       async mounted() {},
