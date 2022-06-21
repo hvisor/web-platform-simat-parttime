@@ -75,10 +75,11 @@
           </div>
         </div>
         <form>
-        
-        
-        
-        
+          <div class="row q-mt-xs q-col-gutter-sm justify-center">
+            <div class="col-md-12 col-xs-12">
+              <q-input dense outlined v-model="empcode" label="Outlined" />
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -91,7 +92,9 @@
   <script>
     var app = new Vue({
       el: '#q-app',
-      data: {},
+      data: {
+        empcode: '',
+      },
       created() {},
       async mounted() {},
     });
